@@ -6,7 +6,7 @@ export async function fetchFilteredDevices(
     query: string,
     currentPage: number,
   ) {
-    //const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   
     try {
       const devices = await sql<DeviceTable>`
@@ -18,6 +18,8 @@ export async function fetchFilteredDevices(
         status,
         color
       FROM devices
+      WHERE name ILIKE ${`%${query}%`}
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
       `;
       return devices.rows;
     } catch (error) {
