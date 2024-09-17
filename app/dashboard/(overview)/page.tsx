@@ -1,4 +1,5 @@
 import { AddDevice } from '@/app/ui/devices/buttons';
+import DevicesTable from '@/app/ui/devices/table';
 import Search from '@/app/ui/search';
 import { Metadata } from 'next';
 
@@ -7,15 +8,19 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-
+    const query ='';
+    const currentPage = 1;
     return (
-        <main>
+        <main className='w-full'>
             <h1 className="mb-4 text-xl md:text-2xl">
                 Dashboard
             </h1>
             <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-                <Search placeholder="Search invoices..." />
+                <Search placeholder="Search devices..." />
                 <AddDevice />
+            </div>
+            <div>
+                <DevicesTable query={query} currentPage={currentPage}/>
             </div>
         </main>
     );
