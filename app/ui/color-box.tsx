@@ -6,6 +6,6 @@ export default function ColorBox({
     intensity: number;
 }){
     return(
-        <div className={`bg-${color}-${intensity}  py-3 rounded-lg border border-gray-200`}></div>
+        <div className={`bg-${color}-${intensity}  py-3 rounded-lg border border-gray-200`}>{color}</div>
     )
 }

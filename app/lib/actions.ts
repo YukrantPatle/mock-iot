@@ -3,11 +3,13 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { Device } from './definitions';
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
 
 export async function addDevice(formData: FormData) {
   const name = formData.get('name');
   const location = formData.get('location');
-  const intensity = 50;
+  const intensity = 0;
   const status = 'off';
   const color = 'yellow'
 
@@ -52,11 +54,9 @@ export async function fetchDeviceById(id: string) {
 }
 
 export async function updateDevice(id: string, formData: FormData) {
-  const name = formData.get('name');
-  const location = formData.get('location');
-  const intensity = 50;
-  const status = 'off';
-  const color = 'yellow'
+  const intensity = formData.get('intensity')
+  const status = formData.get('status')
+  const color = formData.get('color')
 
   try {
     await sql`
@@ -72,4 +72,34 @@ export async function updateDevice(id: string, formData: FormData) {
 
   revalidatePath('/dashboard');
   redirect('/dashboard');
+}
+
+export async function deleteDevice(id: string) {
+  try {
+      await sql`DELETE FROM devices WHERE id = ${id}`;
+      revalidatePath('/dashboard');
+  } catch (error) {
+      return {
+          message: 'Database Error: Failed to Delete Device.',
+      };
+  }
+}
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData,
+) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
+  }
 }

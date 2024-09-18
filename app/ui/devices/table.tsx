@@ -1,6 +1,7 @@
 import { fetchFilteredDevices } from "@/app/lib/data";
 import ColorBox from "../color-box";
 import Link from "next/link";
+import { DeleteInvoice } from "./buttons";
 
 export default async function DevicesTable({
     query,
@@ -15,23 +16,26 @@ export default async function DevicesTable({
             <table className="hidden min-w-full text-gray-900 md:table">
                 <thead className="rounded-lg text-center text-sm font-normal">
                     <tr>
-                        <th scope="col" className="px-4 py-5 font-medium">
+                        <th scope="col" className="px-4 py-5 font-semibold">
                             Name
                         </th>
-                        <th scope="col" className="px-3 py-5 font-medium">
+                        <th scope="col" className="px-3 py-5 font-semibold">
                             Location
                         </th>
-                        <th scope="col" className="px-3 py-5 font-medium">
+                        <th scope="col" className="px-3 py-5 font-semibold">
                             Intensity
                         </th>
-                        <th scope="col" className="px-3 py-5 font-medium">
+                        <th scope="col" className="px-3 py-5 font-semibold">
                             Status
                         </th>
-                        <th scope="col" className="px-3 py-5 font-medium">
+                        <th scope="col" className="px-3 py-5 font-semibold">
                             Color
                         </th>
-                        <th scope="col" className="px-3 py-5 font-medium">
+                        <th scope="col" className="px-3 py-5 font-semibold">
                             Setting
+                        </th>
+                        <th scope="col" className="px-3 py-5 font-semibold">
+                            Unpair
                         </th>
                     </tr>
                 </thead>
@@ -59,7 +63,11 @@ export default async function DevicesTable({
                             <td className="whitespace-nowrap px-3 py-3">
                                 <Link
                                     href={`/dashboard/devices/${device.id}/update`}
-                                    className="p-2 hover:text-xl">⚙️</Link>
+                                    className="rounded-md border p-2 hover:bg-gray-100"
+                                >⚙️</Link>
+                            </td>
+                            <td className="whitespace-nowrap px-3 py-3">
+                                <DeleteInvoice id={device.id} />
                             </td>
                         </tr>
                     ))}

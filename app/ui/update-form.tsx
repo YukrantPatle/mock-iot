@@ -1,13 +1,31 @@
+'use client';
 import Link from "next/link";
 import { updateDevice } from "../lib/actions";
 import { Device } from "../lib/definitions";
 import { Button } from "./button";
+import { useState } from "react";
+
+const coloroptions = ["red", "blue", "green", "yellow"]
 
 export default function UpdateForm({
     device
 }: {
     device: Device;
 }) {
+    const [status, setStatus] = useState<string>(device.status)
+    const [color, setColor] = useState<string>(device.color)
+    const [intensity, setIntensity] = useState<number>(device.intensity)
+
+    const handleIntensity = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIntensity(Number(e.target.value))
+    }
+    const handleStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStatus(e.target.value)
+    }
+    const handleColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setColor((prevStatus) => prevStatus === "on" ? "off" : "on")
+    }
+
     const updateDeviceWithId = updateDevice.bind(null, device.id);
     return (
         <form action={updateDeviceWithId}>
@@ -23,10 +41,42 @@ export default function UpdateForm({
                     <div className="mr-3 font-semibold">Location:</div>
                     <div>{device.location}</div>
                 </div>
-                <div className="mb-4 flex">
+                <div className="mb-4 flex items-center">
                     <div className="mr-3 font-semibold">Status:</div>
-                    <div>{device.status}</div>
-                    {/* Toggle */}
+                    <div className="flex gap-4 rounded-md border border-gray-200 p-1 ">
+                        <div className="flex items-center">
+                            <input
+                                id="off"
+                                name="status"
+                                type="radio"
+                                value="off"
+                                defaultChecked={status === 'off'}
+                                className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            />
+                            <label
+                                htmlFor="pending"
+                                className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs font-medium text-gray-600"
+                            >
+                                OFF
+                            </label>
+                        </div>
+                        <div className="flex items-center">
+                            <input
+                                id="on"
+                                name="status"
+                                type="radio"
+                                value="on"
+                                defaultChecked={status === 'on'}
+                                className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                            />
+                            <label
+                                htmlFor="paid"
+                                className="ml-2 flex cursor-pointer items-center gap-1.5 rounded-full bg-green-500 px-3 py-1.5 text-xs font-medium text-white"
+                            >
+                                ON
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div className="mb-4 flex items-center">
                     <label htmlFor="intensity" className="font-semibold mr-3 block">
@@ -40,17 +90,31 @@ export default function UpdateForm({
                                 type="range"
                                 min="0"
                                 max="100"
-                                defaultValue={device.intensity}
+                                value={intensity}
+                                onChange={handleIntensity}
                                 className="text-neutral-950"
                             />
                         </div>
                     </div>
+                    <div className="ml-3 font-semibold p-1 rounded-md border border-gray-200">{intensity}</div>
                 </div>
-                <div className="mb-4 flex">
+                <div className="mb-4 flex items-center">
                     <label htmlFor="color" className="font-semibold mr-3 block">
                         Color:
                     </label>
-                    <div>{device.color}</div>
+                    <select
+                        id="color"
+                        name="color"
+                        className="peer block w-80 cursor-pointer rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                        defaultValue={color}
+                        onChange={handleColor}
+                    >
+                        {coloroptions.map((color) => (
+                            <option value={color}>
+                                {color}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div className="mt-6 flex justify-end gap-4">
                     <Link

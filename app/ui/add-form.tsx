@@ -54,7 +54,7 @@ export default function Form() {
                     >
                         Cancel
                     </Link>
-                    <Button type="submit">Add Device</Button>
+                    <Button type="submit">Save</Button>
                 </div>
             </div>
         </form>
