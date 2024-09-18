@@ -1,5 +1,6 @@
 import { fetchFilteredDevices } from "@/app/lib/data";
 import ColorBox from "../color-box";
+import Link from "next/link";
 
 export default async function DevicesTable({
     query,
@@ -29,6 +30,9 @@ export default async function DevicesTable({
                         <th scope="col" className="px-3 py-5 font-medium">
                             Color
                         </th>
+                        <th scope="col" className="px-3 py-5 font-medium">
+                            Setting
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +54,12 @@ export default async function DevicesTable({
                                 {device.status}
                             </td>
                             <td className="whitespace-nowrap px-3 py-3">
-                                <ColorBox color={device.color} intensity={device.intensity *10} />
+                                <ColorBox color={device.color} intensity={device.intensity * 10} />
+                            </td>
+                            <td className="whitespace-nowrap px-3 py-3">
+                                <Link
+                                    href={`/dashboard/devices/${device.id}/update`}
+                                    className="p-2 hover:text-xl">⚙️</Link>
                             </td>
                         </tr>
                     ))}
