@@ -1,7 +1,7 @@
 import { fetchFilteredDevices } from "@/app/lib/data";
 import ColorBox from "../color-box";
 import Link from "next/link";
-import { DeleteInvoice } from "./buttons";
+import { DeleteDevice } from "./buttons";
 
 export default async function DevicesTable({
     query,
@@ -67,7 +67,7 @@ export default async function DevicesTable({
                                 >⚙️</Link>
                             </td>
                             <td className="whitespace-nowrap px-3 py-3">
-                                <DeleteInvoice id={device.id} />
+                                <DeleteDevice id={device.id} />
                             </td>
                         </tr>
                     ))}

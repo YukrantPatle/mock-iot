@@ -6,6 +6,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const [device] = await Promise.all([
         fetchDeviceById(id)
     ]);
+    console.log(device)
     return(
         <main>
             <Form device={device}/>

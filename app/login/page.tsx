@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <main className="flex items-center justify-center">
-      <div className="relative mx-auto flex w-full max-w-[400px] flex-col space-y-2.5 p-4 md:-mt-32">
-        <div className="flex w-full items-end rounded-lg bg-violet-600 p-3">
+      <div className="mt-5 flex w-full max-w-[400px] flex-col">
+        <div className="flex w-full items-end rounded-lg bg-violet-600 p-3 mt-3 mb-1">
           <div className="w-32 text-white text-2xl md:w-36">
             Mock-IOT
           </div>

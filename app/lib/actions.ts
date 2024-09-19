@@ -28,31 +28,6 @@ export async function addDevice(formData: FormData) {
   redirect('/dashboard');
 }
 
-export async function fetchDeviceById(id: string) {
-  try {
-    const data = await sql<Device>`
-      SELECT
-        id,
-        name,
-        location,
-        intensity,
-        status,
-        color
-      FROM devices
-      WHERE devices.id = ${id};
-    `;
-
-    const device = data.rows.map((device) => ({
-      ...device,
-    }));
-
-    return device[0];
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch device.');
-  }
-}
-
 export async function updateDevice(id: string, formData: FormData) {
   const intensity = formData.get('intensity')
   const status = formData.get('status')
@@ -101,5 +76,31 @@ export async function authenticate(
       }
     }
     throw error;
+  }
+}
+
+export async function fetchDeviceById(id: string) {
+  revalidatePath('/')
+  try {
+    const data = await sql<Device>`
+      SELECT
+        id,
+        name,
+        location,
+        intensity,
+        status,
+        color
+      FROM devices
+      WHERE devices.id = ${id};
+    `;
+
+    const device = data.rows.map((device) => ({
+      ...device,
+    }));
+
+    return device[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch device.');
   }
 }

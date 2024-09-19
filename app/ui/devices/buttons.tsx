@@ -13,10 +13,10 @@ export function AddDevice() {
       </Link>
     );
   }
-  export function DeleteInvoice({ id }: { id: string }) {
-    const deleteInvoiceById = deleteDevice.bind(null,id)
+  export function DeleteDevice({ id }: { id: string }) {
+    const deleteDeviceById = deleteDevice.bind(null,id)
     return (
-      <form action={deleteInvoiceById}>
+      <form action={deleteDeviceById}>
         <button className="rounded-md border p-2 hover:bg-gray-100">
           <TrashIcon className="w-5 text-red-500" />
         </button>

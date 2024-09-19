@@ -110,7 +110,7 @@ export default function UpdateForm({
                         onChange={handleColor}
                     >
                         {coloroptions.map((color) => (
-                            <option value={color}>
+                            <option key={color} value={color}>
                                 {color}
                             </option>
                         ))}

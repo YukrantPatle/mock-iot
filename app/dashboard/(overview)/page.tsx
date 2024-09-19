@@ -7,9 +7,17 @@ export const metadata: Metadata = {
     title: 'Dashboard',
 };
 
-export default async function Page() {
-    const query ='';
-    const currentPage = 1;
+export default async function Page({
+    searchParams,
+  }: {
+    searchParams?: {
+      query?: string;
+      page?: string;
+    };
+  }) {
+    const query = searchParams?.query || '';
+    const currentPage = Number(searchParams?.page) || 1;
+  
     return (
         <main className='w-full'>
             <h1 className="mb-4 text-xl md:text-2xl">
