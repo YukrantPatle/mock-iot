@@ -3,6 +3,8 @@
 import {
   UserGroupIcon,
   HomeIcon,
+  PlusIcon,
+  ChartBarIcon,
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -16,6 +18,16 @@ const links = [
     name: 'Profile',
     href: '/dashboard/profile',
     icon: UserGroupIcon,
+  },
+  {
+    name: 'Counter',
+    href: '/dashboard/counter',
+    icon: PlusIcon,
+  },
+  {
+    name: 'Plot',
+    href: '/dashboard/plot',
+    icon: ChartBarIcon,
   },
 ];
 

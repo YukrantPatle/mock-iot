@@ -1,6 +1,8 @@
+'use client';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { RecoilRoot } from "recoil";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -13,12 +15,12 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: {
-    template: '%s | Mock-IOT',
-    default: 'Mock-IOT',
-  },
-}
+// export const metadata: Metadata = {
+//   title: {
+//     template: '%s | Mock-IOT',
+//     default: 'Mock-IOT',
+//   },
+// }
 
 export default function RootLayout({
   children,
@@ -26,12 +28,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <RecoilRoot>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </RecoilRoot>
+
   );
 }

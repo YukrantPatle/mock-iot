@@ -3,7 +3,9 @@ import Link from "next/link";
 import { updateDevice } from "../lib/actions";
 import { Device } from "../lib/definitions";
 import { Button } from "./button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { colorAtom, intensityAtom, statusAtom } from "../lib/atoms";
 
 const coloroptions = ["red", "blue", "green", "yellow"]
 
@@ -12,9 +14,16 @@ export default function UpdateForm({
 }: {
     device: Device;
 }) {
-    const [status, setStatus] = useState<string>(device.status)
-    const [color, setColor] = useState<string>(device.color)
-    const [intensity, setIntensity] = useState<number>(device.intensity)
+    const [status, setStatus] = useRecoilState<string>(statusAtom)
+    const [color, setColor] = useRecoilState<string>(colorAtom)
+    const [intensity, setIntensity] = useRecoilState<number>(intensityAtom)
+    console.log(status);
+
+     useEffect(() => {
+        setStatus(device.status)
+        setColor(device.color)
+        setIntensity(device.intensity)
+     },[])
 
     const handleIntensity = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIntensity(Number(e.target.value))
@@ -23,7 +32,7 @@ export default function UpdateForm({
         setStatus(e.target.value)
     }
     const handleColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setColor((prevStatus) => prevStatus === "on" ? "off" : "on")
+        setColor(e.target.value)
     }
 
     const updateDeviceWithId = updateDevice.bind(null, device.id);
@@ -66,6 +75,7 @@ export default function UpdateForm({
                                 name="status"
                                 type="radio"
                                 value="on"
+
                                 defaultChecked={status === 'on'}
                                 className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
                             />
