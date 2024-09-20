@@ -4,8 +4,7 @@ import * as Plot from "@observablehq/plot";
 import { useEffect, useRef } from "react";
 
 export default function Page() {
-    const containerRef = useRef();
-
+    const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (plotData === undefined) return;
         const plot = Plot.plot({
@@ -17,16 +16,15 @@ export default function Page() {
                 Plot.lineX(plotData2, { x: "time", y: "speed", tip: true, marker: "circle" })
 
             ]
-
         });
-        containerRef.current.append(plot);
+        containerRef.current?.appendChild(plot);
         return () => plot.remove();
     }, [plotData]);
 
     return <main>
-        <h1 className="mb-4 text-2xl md:text-3xl font-semibold">
-                Plot 2
-            </h1>
+        <h1 data-testId="page-heading2" className="mb-4 text-2xl md:text-2xl font-semibold">
+            Plot 2
+        </h1>
         <div ref={containerRef} />
     </main>;
 }

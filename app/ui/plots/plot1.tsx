@@ -9,7 +9,7 @@ const data = plotData.map(data => ({
 }))
 
 export default function Page() {
-    const containerRef = useRef();
+    const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (plotData === undefined) return;
         const plot = Plot.plot({
@@ -18,18 +18,16 @@ export default function Page() {
             marks: [
                 Plot.ruleY([0]),
                 Plot.lineY(data, { x: "time", y: "speed", tip: true, marker: "circle" })
-
             ]
-
         });
-        containerRef.current.append(plot);
+        containerRef.current?.appendChild(plot);
         return () => plot.remove();
     }, [plotData]);
 
     return <main>
-        <h1 className="mb-4 text-2xl md:text-2xl font-semibold">
-                Plot 1
-            </h1>
+        <h1 data-testId="page-heading1" className="mb-4 text-2xl md:text-2xl font-semibold">
+            Plot 1
+        </h1>
         <div ref={containerRef} />
     </main>;
 }

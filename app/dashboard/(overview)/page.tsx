@@ -9,12 +9,12 @@ export const metadata: Metadata = {
 
 export default async function Page({
     searchParams,
-  }: {
+}: {
     searchParams?: {
-      query?: string;
-      page?: string;
+        query?: string;
+        page?: string;
     };
-  }) {
+}, p0: { query: string; page: string; }) {
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
   
