@@ -3,7 +3,7 @@ name: Run Jest Tests
 on:
   push:
     branches:
-      - main
+      - test104
       - main/** # Matches any branches that are created from `main` or indirectly from `main`
       
   pull_request:
