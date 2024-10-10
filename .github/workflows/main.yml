@@ -9,10 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.18.0] # Adjust based on your Node.js versions
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20.18.0'
 
       - name: Install dependencies
         run: npm install
