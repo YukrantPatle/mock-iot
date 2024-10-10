@@ -1,4 +1,4 @@
-name: Run Jest Tests
+name: Run Unit Tests
 
 on:
   push:
@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-      - main/** # Matches pull requests on branches created from `main`
 
 jobs:
   test:
